@@ -14,7 +14,7 @@ const DEFAULT_ALLERGENS = [
 
         function initAllergenProfile() {
           try {
-            const raw = localStorage.getItem('vibe_user_allergens');
+            const raw = localStorage.getItem('gida_alerjen_profilim');
             userAllergens = raw ? JSON.parse(raw) : ['gluten', 'peanuts'];
           } catch(e) {
             userAllergens = ['gluten', 'peanuts'];
@@ -62,7 +62,51 @@ const DEFAULT_ALLERGENS = [
         }
 
         function saveAllergens() {
-          localStorage.setItem('vibe_user_allergens', JSON.stringify(userAllergens));
+          localStorage.setItem('gida_alerjen_profilim', JSON.stringify(userAllergens));
+        }
+
+        // Standalone: OpenFoodFacts dogrudan (backend proxy yok, CORS-acik)
+        async function fetchFoodInfo(input) {
+          const isBarcode = /^[0-9]{8,14}$/.test(input);
+          let url = '';
+          if (isBarcode) {
+            url = 'https://world.openfoodfacts.org/api/v2/product/' + encodeURIComponent(input) + '.json';
+          } else {
+            url = 'https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + encodeURIComponent(input.slice(0, 60)) + '&search_simple=1&action=process&json=1&page_size=12';
+          }
+
+          const response = await fetch(url);
+          if (!response.ok) throw new Error('Gida veri tabanina ulasilamadi (HTTP ' + response.status + ')');
+          const data = await response.json();
+
+          let products = [];
+          if (isBarcode) {
+            if (data.status === 1 && data.product) products = [data.product];
+          } else if (data.products) {
+            products = data.products;
+          }
+
+          const formatted = products.map(p => ({
+            code: p.code || '',
+            name: p.product_name || p.product_name_tr || p.product_name_en || 'Isimsiz Urun',
+            brands: p.brands || 'Bilinmiyor',
+            image: p.image_front_url || p.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format&fit=crop&q=80',
+            nutriscore: (p.nutriscore_grade || '').toUpperCase() || '?',
+            ecoscore: (p.ecoscore_grade || '').toUpperCase() || '?',
+            allergens: (p.allergens_tags || []).map(a => a.replace(/^[a-z]{2}:/, '')),
+            allergensHierarchy: p.allergens_hierarchy || [],
+            ingredientsText: p.ingredients_text_tr || p.ingredients_text || 'Icerik bilgisi bulunamadi',
+            categories: p.categories || '',
+            nutriments: {
+              energyKcal: (p.nutriments && (p.nutriments['energy-kcal_100g'] || p.nutriments['energy-kcal'])) || 0,
+              fat: (p.nutriments && p.nutriments['fat_100g']) || 0,
+              sugar: (p.nutriments && p.nutriments['sugars_100g']) || 0,
+              proteins: (p.nutriments && p.nutriments['proteins_100g']) || 0,
+              salt: (p.nutriments && p.nutriments['salt_100g']) || 0
+            }
+          }));
+
+          return { success: true, count: formatted.length, products: formatted };
         }
 
         async function searchFood() {
@@ -76,10 +120,7 @@ const DEFAULT_ALLERGENS = [
           resultsBox.innerHTML = '';
 
           try {
-            const isBarcode = /^[0-9]{8,14}$/.test(input);
-            const queryParam = isBarcode ? `barcode=${encodeURIComponent(input)}` : `q=${encodeURIComponent(input)}`;
-            const res = await fetch(`/api/food/search?${queryParam}`);
-            const data = await res.json();
+            const data = await fetchFoodInfo(input);
 
             loading.classList.add('hidden');
 

@@ -3,40 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gıda Dedektifi & Alerjen Kalkanı - Standalone</title>
+  <title>Gıda Dedektifi & Alerjen</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23fa520f' stroke='%2344403c' stroke-width='1.5'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='-apple-system,BlinkMacSystemFont,Inter,sans-serif' font-weight='800' font-size='13' letter-spacing='-0.5'%3EMK%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="css/mistral-theme.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c1917' stroke='%2344403c' stroke-width='1.5'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='-apple-system,BlinkMacSystemFont,Inter,sans-serif' font-weight='800' font-size='13' letter-spacing='-0.5'%3EMK%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/style.css">
-  
+  <link rel="stylesheet" href="css/mistral-theme.css">
   <style>
-    :root { --mistral-ink: #1c1917; --mistral-slate: #78716c; --mistral-stone: #a8a29e; --mistral-hairline: #e7e5e4; --mistral-cream: #f5f5f4; --mistral-beige-deep: #d6d3d1; }
-    body { font-family: 'Inter', sans-serif; background-color: #fafaf9; color: var(--mistral-ink); }
-    h1, h2, .font-editorial { font-family: 'Newsreader', serif; }
+    :root {
+      --mistral-ink: #1c1917;
+      --mistral-slate: #78716c;
+      --mistral-stone: #a8a29e;
+      --mistral-hairline: #e7e5e4;
+      --mistral-cream: #f5f5f4;
+      --mistral-cream-deeper: #e7e5e4;
+      --mistral-cream-light: #fafaf9;
+      --mistral-beige-deep: #d6d3d1;
+      --mistral-canvas: #fafaf9;
+      --mistral-orange: #fa520f;
+      --mistral-orange-deep: #e04400;
+    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #fafaf9; color: var(--mistral-ink); }
+    h1, h2, h3, h4, .font-editorial { font-family: 'Newsreader', serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .bg-mistral-cream { background-color: var(--mistral-cream); }
+    .bg-mistral-cream-deeper { background-color: var(--mistral-cream-deeper); }
+    .bg-mistral-cream-light { background-color: var(--mistral-cream-light); }
+    .bg-mistral-canvas\\/80 { background-color: rgba(250, 250, 249, 0.8); }
     .text-mistral-ink { color: var(--mistral-ink); }
     .text-mistral-slate { color: var(--mistral-slate); }
     .text-mistral-stone { color: var(--mistral-stone); }
-    .bg-mistral-cream { background-color: var(--mistral-cream); }
+    .text-mistral-orange { color: var(--mistral-orange); }
+    .bg-mistral-orange { background-color: var(--mistral-orange); }
     .border-mistral-hairline { border-color: var(--mistral-hairline); }
-    .bg-mistral-canvas { background-color: #0f172a; }
+    .border-mistral-hairline-soft { border-color: #efedeb; }
+    .border-mistral-beige-deep { border-color: var(--mistral-beige-deep); }
+    .hover\\:bg-mistral-cream:hover { background-color: var(--mistral-cream) !important; }
+    .hover\\:text-mistral-orange:hover { color: var(--mistral-orange) !important; }
   </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 sm:p-8">
   <div class="max-w-6xl mx-auto">
-    <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-3">
-          <a href="https://github.com/melihkarasu" target="_blank" class="text-mistral-slate hover:text-teal-500 transition text-sm flex items-center gap-1">&larr; GitHub Profiline Dön</a>
-          <span class="text-mistral-stone">|</span>
-          <span class="px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-600 text-xs font-semibold">Open Source Edition</span>
+    <!-- Üst Başlık & Navigasyon -->
+      <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3">
+            
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-normal font-editorial tracking-tight mt-1.5 text-mistral-ink flex items-center gap-2">
+            <span>🏷️</span> Gıda Dedektifi & Kişisel Alerjen Kalkanı
+          </h1>
+          <p class="text-mistral-slate text-sm mt-0.5 font-normal">
+            Open Food Facts ile 3M+ barkodlu gıda ürününü sorgulayın, Nutri-Score değerini görün ve kişisel alerjen profilinizle risk uyarısı alın.
+          </p>
         </div>
-        <h1 class="text-3xl sm:text-4xl font-normal font-editorial tracking-tight mt-1.5 text-mistral-ink flex items-center gap-2"><span>🏷️</span> Gıda Dedektifi & Alerjen Kalkanı</h1>
+
+        <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-mistral-hairline text-xs text-mistral-ink shadow-xs">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span class="font-medium">Open Food Facts Veritabanı Açık</span>
+        </div>
       </div>
-    </div>
-    
+
+      <!-- KULLANICI KİŞİSEL ALERJEN PROFİLİ BANT / MODAL -->
+      <div class="p-6 rounded-2xl bg-white border border-mistral-hairline shadow-sm mb-8 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-mistral-hairline">
+          <div>
+            <h3 class="text-base font-bold font-editorial text-mistral-ink flex items-center gap-2">
+              <span>🛡️</span> Kişisel Alerji Profiliniz
+            </h3>
+            <p class="text-xs text-mistral-slate mt-0.5">
+              Hassas olduğunuz alerjenleri seçin; sorguladığınız ürünlerde eşleşme olursa sistem kırmızı alarm verecektir.
+            </p>
+          </div>
+          <button onclick="saveAllergens()" class="px-3.5 py-1.5 rounded-md text-mistral-ink font-boldbg-mistral-cream hover:bg-mistral-cream-deeper text-mistral-ink border border-mistral-beige-deep text-xs font-semibold transition shrink-0">
+            Kaydet (Tarayıcıda Sakla)
+          </button>
+        </div>
+
+        <!-- Yaygın Alerjen Seçim Kutuları -->
+        <div class="flex flex-wrap gap-2 text-xs" id="allergen-pills">
+          <!-- JS ile doldurulur -->
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <input type="text" id="custom-allergen-input" placeholder="Özel alerjen ekle (örn: çilek, susam)..." onkeydown="if(event.key==='Enter') addCustomAllergen()" class="px-3 py-1.5 rounded-lg bg-white border border-mistral-hairline text-xs text-mistral-ink focus:outline-none focus:border-mistral-orange">
+          <button onclick="addCustomAllergen()" class="px-3 py-1.5 rounded-lg text-mistral-ink font-boldbg-mistral-cream hover:bg-mistral-cream-deeper text-mistral-ink border border-mistral-beige-deep text-xs font-medium transition">Ekle</button>
+        </div>
+      </div>
+
+      <!-- ÜRÜN ARAMA & BARKOD KONTROLÜ -->
+      <div class="p-6 rounded-2xl bg-white border border-mistral-hairline shadow-sm mb-8 space-y-4">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-1">
+            <input 
+              type="text" 
+              id="food-search-input" 
+              placeholder="Ürün adı veya 8-13 haneli barkod numarası girin (örn: Nutella, 3017620422003, Ülker, Eti)..." 
+              onkeydown="if(event.key==='Enter') searchFood()"
+              class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-white border border-mistral-hairline text-sm text-mistral-ink placeholder:text-mistral-stone focus:outline-none focus:border-mistral-orange transition">
+            <span class="absolute left-3.5 top-3 text-mistral-stone text-sm">🔍</span>
+          </div>
+          <button 
+            type="button" 
+            onclick="searchFood()" 
+            class="px-5 py-2.5 rounded-md bg-mistral-orange hover:bg-mistral-orange-deep text-white text-xs font-medium transition shadow-xs flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>Ürünü Tara</span> &rarr;
+          </button>
+        </div>
+
+        <!-- Popüler Örnekler -->
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-mistral-hairline text-xs">
+          <span class="text-mistral-stone font-medium mr-1">Örnek Ürünler:</span>
+          <button onclick="quickFood('3017620422003')" class="px-2.5 py-1 rounded-md text-mistral-ink font-boldbg-mistral-cream hover:bg-mistral-cream-deeper text-mistral-ink border border-mistral-beige-deep transition">🌰 Nutella (Barkod)</button>
+          <button onclick="quickFood('Eti Karam')" class="px-2.5 py-1 rounded-md text-mistral-ink font-boldbg-mistral-cream hover:bg-mistral-cream-deeper text-mistral-ink border border-mistral-beige-deep transition">🍫 Eti Karam</button>
+          <button onclick="quickFood('Sütaş Süt')" class="px-2.5 py-1 rounded-md text-mistral-ink font-boldbg-mistral-cream hover:bg-mistral-cream-deeper text-mistral-ink border border-mistral-beige-deep transition">🥛 Sütaş Süt</button>
+          <button onclick="quickFood('Barilla Spaghetti')" class="px-2.5 py-1 rounded-md text-mistral-ink font-boldbg-mistral-cream hover:bg-mistral-cream-deeper text-mistral-ink border border-mistral-beige-deep transition">🍝 Barilla Makarna</button>
+        </div>
+      </div>
+
+      <!-- SONUÇLAR VE ALERJEN UYARI ALANI -->
+      <div id="food-loading" class="hidden py-16 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mistral-cream text-mistral-ink border border-mistral-beige-deep text-xs font-semibold">
+          <span class="w-2.5 h-2.5 rounded-full bg-mistral-orange animate-ping"></span>
+          <span>Open Food Facts taranıyor...</span>
+        </div>
+      </div>
+
+      <div id="food-results" class="space-y-6 mb-16">
+        <!-- JS ile ürün kartları çizilir -->
+      </div>
   </div>
+
+  <footer class="mt-16 text-center text-xs text-mistral-stone border-t border-mistral-hairline pt-6">
+    <p>Açık Kaynak Standalone Sürüm • Veriler: <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener" class="underline hover:text-mistral-ink">Open Food Facts</a></p>
+  </footer>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
